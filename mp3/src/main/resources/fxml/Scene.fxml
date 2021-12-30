@@ -22,8 +22,9 @@
             <TableColumn fx:id="colFormat" prefWidth="85.0" text="Format" />
         </columns>
       </TableView>
-      <Button layoutX="53.0" layoutY="375.0" mnemonicParsing="false" text="Play" />
-      <Button layoutX="102.0" layoutY="375.0" mnemonicParsing="false" text="Stop" />
-      <Button layoutX="156.0" layoutY="375.0" mnemonicParsing="false" text="Lyrics" />
+      <Button layoutX="53.0" layoutY="375.0" mnemonicParsing="false" onAction="#playMusic" text="Play" />
+      <Button layoutX="171.0" layoutY="375.0" mnemonicParsing="false" onAction="#stopMusic" text="Stop" />
+      <Button layoutX="224.0" layoutY="375.0" mnemonicParsing="false" onAction="#showLyrics" text="Lyrics" />
+      <Button layoutX="100.0" layoutY="375.0" mnemonicParsing="false" onAction="#resumeMusic" text="Resume" />
    </children>
 </AnchorPane>

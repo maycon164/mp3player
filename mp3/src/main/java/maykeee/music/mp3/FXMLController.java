@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.JFileChooser;
-
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -22,6 +20,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import maykeee.music.entities.Music;
+import maykeee.music.entities.Player;
+import maykeee.music.utils.Utils;
 
 public class FXMLController implements Initializable {
 
@@ -43,15 +43,32 @@ public class FXMLController implements Initializable {
 	private TableColumn<Music, String> colFormat;
 
 	@FXML
-	private void handleButtonAction(ActionEvent event) {
-		System.out.println("RONALDO");
-		JFileChooser fc = new JFileChooser();
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		int value = fc.showOpenDialog(null);
+	private void playMusic(ActionEvent event) {
 
-		if (value == JFileChooser.APPROVE_OPTION) {
-			System.out.println(fc.getSelectedFile().toString());
+		if (tableMusic.getSelectionModel().getSelectedItem() != null) {
+
+			Player.play(tableMusic.getSelectionModel().getSelectedItem().getPath());
+
 		}
+
+	}
+	
+	@FXML
+	private void stopMusic(ActionEvent event) {
+		Player.pause();
+	}
+
+	@FXML
+	private void resumeMusic(ActionEvent event) {
+		Player.resume();
+	}
+	
+	@FXML
+	private void showLyrics(ActionEvent event) {
+		System.out.println("OLÁ");
+		Music music = tableMusic.getSelectionModel().getSelectedItem();
+		String lyrics = Utils.findLyrics(music.getArtist(), music.getMusic());
+		System.out.println(lyrics);
 	}
 
 	@Override
@@ -78,7 +95,7 @@ public class FXMLController implements Initializable {
 							music.setArtist(tags.getArtist());
 							music.setMusic(tags.getTitle());
 							music.setPath(file.getAbsolutePath());
-
+							music.setFormat("mp3");
 							musics.add(music);
 						}
 
